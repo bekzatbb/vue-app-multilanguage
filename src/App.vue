@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <select name="lang" v-model='lang'>
+    <option value="en">eng</option>
+    <option value="ru">rus</option>
+    <option value="kz">kaz</option>
+  </select>
+  <h1>{{ translate('welcome') }}</h1>
+  <p>{{ translate('message') }}</p>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import en from './lang/en.js';
+import ru from './lang/ru.js';
+import kz from './lang/kz.js';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  mixins: [en, ru, kz],
+  data() {
+    return {
+      lang: 'kz',
+    }
+  },
+  methods: {
+    translate(prop) {
+      return this[this.lang][prop];
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
